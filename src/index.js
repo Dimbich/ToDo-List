@@ -6,14 +6,19 @@ import SearchPanel from './components/search-panel';
 
 const App = () => {
     const login = <span> Log in</span>,
-          isLogin = false;
+          isLogin = false,
+          todoDate = [
+              { label:'Выучить React', important: false, id: 1 },
+              { label:'Создать приложение', important: false, id: 2 },
+              { label:'Устроиться на работу', important: true, id: 3 },
+          ];
 
     return (
         <div>
             { isLogin ? null : login }
             <AppHeader />
             <SearchPanel />
-            <TodoList />
+            <TodoList todos={todoDate}/>
         </div>
     );
  };
