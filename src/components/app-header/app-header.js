@@ -1,7 +1,7 @@
 import React from 'react';
 import './app-header.css';
 
-const AppHeader = ({toDo = 3, done = 5}) => {
+const AppHeader = ({toDo, done}) => {
   return (
     <div className="app-header d-flex">
       <h1>Todo List</h1>
