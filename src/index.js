@@ -5,9 +5,7 @@ import TodoList from './components/todo-list';
 import SearchPanel from './components/search-panel';
 
 const App = () => {
-    const login = <span> Log in</span>,
-          isLogin = false,
-          todoDate = [
+    const todoDate = [
               { label:'Выучить React', important: false, id: 1 },
               { label:'Создать приложение', important: false, id: 2 },
               { label:'Устроиться на работу', important: true, id: 3 },
@@ -15,8 +13,7 @@ const App = () => {
 
     return (
         <div>
-            { isLogin ? null : login }
-            <AppHeader />
+            <AppHeader/>
             <SearchPanel />
             <TodoList todos={todoDate}/>
         </div>
