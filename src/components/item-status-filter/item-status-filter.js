@@ -3,30 +3,31 @@ import React,{Component} from 'react';
 import './item-status-filter.css';
 
 class ItemStatusFilter extends Component {
+  state = {
+    activeBtn: 'All'
+  }
 
   filterItem = ({target:{textContent}}) => {
     const action = textContent.toLowerCase()
     this.props.onFilterItem(action);
+    this.setState({activeBtn: textContent})
   }
 
+  buttonList = ['All', 'Active', 'Done']
+  
   render() {
+    const getFilterPanel = buttonList => buttonList.map(item => {
+        return (
+        <button type="button"
+                className={this.state.activeBtn === item ? "btn btn-info" : "btn btn-outline-secondary"}
+                onClick = {this.filterItem}>
+          {item}
+        </button>)
+      })
+
     return (
       <div className="btn-group">
-        <button type="button"
-                className="btn btn-info"
-                onClick = {this.filterItem}>
-          All
-        </button>
-        <button type="button"
-                className="btn btn-outline-secondary"
-                onClick = {this.filterItem}>
-          Active
-        </button>
-        <button type="button"
-                className="btn btn-outline-secondary"
-                onClick = {this.filterItem}>
-          Done
-        </button>
+        {getFilterPanel(this.buttonList)}
       </div>
     );
   };

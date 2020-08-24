@@ -16,7 +16,8 @@ export default class App extends Component {
           this.createItem('Создать приложение'),
           this.createItem('Устроиться на работу')
         ],
-        search: ''
+        search: '',
+        activeFilter: 'all'
     };
 
     createItem (label) {
@@ -76,23 +77,21 @@ export default class App extends Component {
       })
     }
 
-    onFilterItem = (filterName) => {
-      this.setState(({todoDate}) => {
-        switch (filterName) {
-          case 'all':
-            todoDate = [...todoDate]
-            break;
-          case 'done':
-            todoDate = todoDate.filter(item => item.done)
-            break;
-          case 'active':     
-            todoDate = todoDate.filter(item => !item.done)
-            break;
-          default:
-            break;
-        }
-        return {todoDate}
-      })
+    filterItem = (todoList ,filterName) => {
+      switch (filterName) {
+        case 'all':
+          return todoList
+        case 'done':
+          return todoList.filter(item => item.done)
+        case 'active':     
+          return todoList.filter(item => !item.done)
+        default:
+          break;
+      }
+    }
+
+    onFilterItem = (activeFilter) => {
+      this.setState({activeFilter})
     }
 
     searchItem(items, search) {
@@ -104,12 +103,12 @@ export default class App extends Component {
     }
 
     render(){
-      const {todoDate,search} = this.state;
+      const {todoDate, search, activeFilter} = this.state;
       
       const doneCount = todoDate.filter(item => item.done).length;
       const todoCount = todoDate.length - doneCount
       
-      const visibleItems = this.searchItem(todoDate, search)
+      const visibleItems = this.filterItem(this.searchItem(todoDate, search), activeFilter);
       return (
           <div className="todo-app">
               <AppHeader toDo={todoCount} done={doneCount} />
